@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
     public function index()
     {
-        $data = Mahasiswa::all();
+        // Eloquent
+        // $data = Mahasiswa::all();
+
+        // Query Builder
+        $data = DB::table('mahasiswa')
+                    ->orderBy('nim', 'asc')
+                    ->get();
         return view ('mahasiswa.home', ['data'=>$data]);
     }
 
@@ -36,7 +43,13 @@ class MahasiswaController extends Controller
 
     public function show($id, Mahasiswa $mahasiswa)
     {
-        $mahasiswa = Mahasiswa::where('id', $id)->first();
+        // Eloquent        
+        // $mahasiswa = Mahasiswa::where('id', $id)->first();
+
+        // Query Builder
+        $mahasiswa = DB::table('mahasiswa')
+                        ->where('id', $id)
+                        ->first();
         return view('mahasiswa.show', ['mahasiswa'=>$mahasiswa]);
     }
     

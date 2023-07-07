@@ -1,7 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.main')
+
+@section('title', 'Tambah Data Mahasiswa')
  
 @section('content') 
-    <h1 class="text-uppercase text-center m-5">tambah data mahasiswa</h1>
     <div class="container pt-5">
         <form method="POST" action="{{ route('mahasiswa.tambah.simpan') }}" enctype="multipart/form-data" >
         @csrf

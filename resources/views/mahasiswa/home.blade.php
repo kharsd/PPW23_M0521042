@@ -1,7 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.main')
+
+@section('title', 'Daftar Data Mahasiswa')
 
 @section('content')
-    <h1 class="text-uppercase text-center m-5">data mahasiswa</h1>
     <div class="d-md-flex justify-content-md-end p-3">
       <a href="{{ route('mahasiswa.tambah') }}" class="btn btn-outline-light" role="button" data-bs-toggle="button">+ &nbsp; Tambah Data Mahasiswa</a>
     </div>

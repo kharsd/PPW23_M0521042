@@ -1,14 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('content')
-    <div class="row mt-5 mb-5">
-        <div class="col-lg-12 margin-tb">
-            <div class="float-left">
-                <h1 class="text-uppercase text-center">data mahasiswa</h1>
-            </div>
-        </div>
-    </div>
-    
+@section('title', 'Detail Data Mahasiswa')
+
+@section('content')    
     <table class="text-white my-4 col-sm-6 mb-3 mb-sm-0">
         <tr>
             <th scope="row">NIM</th>

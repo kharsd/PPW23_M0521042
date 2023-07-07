@@ -1,7 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.main')
+
+@section('title', 'Data Mahasiswa')
  
 @section('content') 
-    <h1 class="text-uppercase text-center m-5">data mahasiswa</h1>
     <div class="row">
         <div class="col-sm-6 mb-3 mb-sm-0">
             <div class="card">
