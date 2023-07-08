@@ -23,4 +23,7 @@ Route::controller(MahasiswaController::class)->prefix('mahasiswa')->group(functi
     Route::get('show/{id}', 'show')->name('mahasiswa.show');
     Route::get('tambah', 'tambah')->name('mahasiswa.tambah');
     Route::post('tambah', 'simpan')->name('mahasiswa.tambah.simpan');
+    Route::get('edit/{id}', 'edit')->name('mahasiswa.edit');
+    Route::post('edit/{id}', 'update')->name('mahasiswa.tambah.update');
+    Route::get('hapus/{id}', 'hapus')->name('mahasiswa.hapus');
 });

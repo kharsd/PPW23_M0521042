@@ -5,6 +5,7 @@
 @section('content')    
     <table class="text-white my-4 col-sm-6 mb-3 mb-sm-0">
         <tr>
+            <td rowspan="5"><img src="/images/{{ $mahasiswa->image }}" width="200px"></td>
             <th scope="row">NIM</th>
             <td>: {{ $mahasiswa->nim }}</td>
         </tr>

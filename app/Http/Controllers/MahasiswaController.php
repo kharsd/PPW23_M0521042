@@ -26,18 +26,28 @@ class MahasiswaController extends Controller
         return view ('mahasiswa.form');
     }
 
-    public function simpan(Request $request){
-        $data = [
-            'nim' => $request->nim,
-            'nama' => $request->nama,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'email' => $request->email,
-            'alamat' => $request->alamat,
-            //nama pada db => nama di form u/ name=''
-        ];
-
+    public function simpan(Request $request)
+    {
+        $request->validate([
+            'nim' => 'required',
+            'nama' => 'required',
+            'tanggal_lahir' => 'required',
+            'email' => 'required',
+            'alamat' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+   
+        $data = $request->all();
+   
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['image'] = "$profileImage";
+        }
+     
         Mahasiswa::create($data);
-
+      
         return redirect()->route('mahasiswa');
     }
 
@@ -53,4 +63,54 @@ class MahasiswaController extends Controller
         return view('mahasiswa.show', ['mahasiswa'=>$mahasiswa]);
     }
     
+    public function edit($id){
+        // $menu = Menu::find($id)->first();
+        $mahasiswa = Mahasiswa::where('id', $id)->first();
+
+        return view('mahasiswa.edit', ['mahasiswa'=>$mahasiswa]);
+    }
+
+    public function update($id, Request $request){
+        // $data = [
+        //     'nama' => $request->nama,
+        //     'kategori' => $request->kategori,
+        //     'harga' => $request->harga,
+        //     //nama di db => nama di menuTambah u/ name=''
+        // ];
+
+        // Mahasiswa::find($id)->update($data);
+        // // Menu::where('id', $id)->first();
+
+        // return redirect()->route('mahasiswa');
+
+        $request->validate([
+            'nim' => 'required',
+            'nama' => 'required',
+            'tanggal_lahir' => 'required',
+            'email' => 'required',
+            'alamat' => 'required'
+        ]);
+   
+        $data = $request->all();
+   
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['image'] = "$profileImage";
+        }else{
+            unset($data['image']);
+        }
+           
+        Mahasiswa::find($id)->update($data);
+     
+        return redirect()->route('mahasiswa');
+    }
+
+    public function hapus($id){
+        Mahasiswa::find($id)->delete();
+
+        return redirect()->route('mahasiswa');
+    }
+
 }

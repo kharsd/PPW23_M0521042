@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->string('email');
             $table->text('alamat');
+            $table->string('image');
             $table->timestamps();
         });
     }

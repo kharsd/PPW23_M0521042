@@ -26,6 +26,10 @@
             <label class="form-label">Alamat</label>
             <input type="address" class="form-control" placeholder="Alamat" name="alamat">
         </div>
+        <div class="mb-3">
+            <label class="form-label">Foto</label>
+            <input type="file" class="form-control" placeholder="Foto" name="image">
+        </div>
         <div class="d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-light my-3">Simpan</button>
         </div>
