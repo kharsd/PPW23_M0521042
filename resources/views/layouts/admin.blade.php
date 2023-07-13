@@ -28,9 +28,29 @@
             <div class="header-left">
               <span class="material-icons-outlined">search</span>
             </div>
-            <div class="header-right">
-              <span class="material-icons-outlined">account_circle</span>
-            </div>
+            <ul>
+                @auth     
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Selamat Datang, {{ auth()->user()->name }}
+                    </a>
+                    <ul class="dropdown-menu">
+                      {{-- <li><a class="dropdown-item" href="/">My Dashboard</a></li> --}}
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                          <form method="POST" action="/logout">
+                            @csrf
+                                <button type="submit" class="dropdown-item">Logout</button>
+                          </form>
+                      </li>
+                    </ul>
+                @else
+                <div class="header-right">
+                    <a href="/login">
+                        <button type="submit" class="btn btn-light my-3">Login</button>
+                    </a>
+                </div>
+                @endauth
+            </ul>
           </header>
           <!-- End Header -->
 
@@ -38,15 +58,15 @@
           <aside id="sidebar">
             <div class="sidebar-title">
               <div class="sidebar-brand">            
-                DATA MAHASISWA
+                Moraa Florist
               </div>
               <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
             </div>
 
             <ul class="sidebar-list">
               <li class="sidebar-list-item">
-                <a href="/">
-                  <span class="material-icons-outlined">dashboard</span> Dashboard
+                <a href="{{ route('product') }}">
+                  <span class="material-icons-outlined">local_florist</span> Produk
                 </a>
               </li>
             </ul>
@@ -69,9 +89,8 @@
 
         </div>
 
-        <!-- Scripts -->
-        <!-- ApexCharts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <!-- Custom JS -->
         <script src="{{asset('js/scripts.js')}}"></script>
     </body>

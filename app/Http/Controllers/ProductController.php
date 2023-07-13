@@ -3,37 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Mahasiswa;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller
+class ProductController extends Controller
 {
     public function index()
     {
         // Eloquent
-        // $data = Mahasiswa::all();
+        // $data = product::all();
 
         // Query Builder
-        $data = DB::table('mahasiswa')
-                    ->orderBy('nim', 'asc')
-                    ->get();
-        return view ('mahasiswa.home', ['data'=>$data]);
+        $data = DB::table('product')->get();
+        return view ('admin.produk', ['data'=>$data]);
     }
 
     public function tambah()
     {
-        return view ('mahasiswa.form');
+        return view ('admin.produkTambah');
     }
 
     public function simpan(Request $request)
     {
         $request->validate([
-            'nim' => 'required',
             'nama' => 'required',
-            'tanggal_lahir' => 'required',
-            'email' => 'required',
-            'alamat' => 'required',
+            'harga' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
    
@@ -45,50 +40,35 @@ class MahasiswaController extends Controller
             $image->move($destinationPath, $profileImage);
             $data['image'] = "$profileImage";
         }
-     
-        Mahasiswa::create($data);
+    
+        Product::create($data);
       
-        return redirect()->route('mahasiswa');
+        return redirect()->route('product');
     }
 
-    public function show($id, Mahasiswa $mahasiswa)
+    public function show($id, Product $product)
     {
         // Eloquent        
-        // $mahasiswa = Mahasiswa::where('id', $id)->first();
+        // $product = product::where('id', $id)->first();
 
         // Query Builder
-        $mahasiswa = DB::table('mahasiswa')
+        $product = DB::table('product')
                         ->where('id', $id)
                         ->first();
-        return view('mahasiswa.show', ['mahasiswa'=>$mahasiswa]);
+        return view('admin.produkShow', ['product'=>$product]);
     }
     
     public function edit($id){
         // $menu = Menu::find($id)->first();
-        $mahasiswa = Mahasiswa::where('id', $id)->first();
+        $product = Product::where('id', $id)->first();
 
-        return view('mahasiswa.edit', ['mahasiswa'=>$mahasiswa]);
+        return view('admin.produkEdit', ['product'=>$product]);
     }
 
     public function update($id, Request $request){
-        // $data = [
-        //     'nama' => $request->nama,
-        //     'kategori' => $request->kategori,
-        //     'harga' => $request->harga,
-        //     //nama di db => nama di menuTambah u/ name=''
-        // ];
-
-        // Mahasiswa::find($id)->update($data);
-        // // Menu::where('id', $id)->first();
-
-        // return redirect()->route('mahasiswa');
-
         $request->validate([
-            'nim' => 'required',
             'nama' => 'required',
-            'tanggal_lahir' => 'required',
-            'email' => 'required',
-            'alamat' => 'required'
+            'harga' => 'required'
         ]);
    
         $data = $request->all();
@@ -102,15 +82,14 @@ class MahasiswaController extends Controller
             unset($data['image']);
         }
            
-        Mahasiswa::find($id)->update($data);
-     
-        return redirect()->route('mahasiswa');
+        Product::find($id)->update($data);
+    
+        return redirect()->route('product');
     }
 
     public function hapus($id){
-        Mahasiswa::find($id)->delete();
+        Product::find($id)->delete();
 
-        return redirect()->route('mahasiswa');
+        return redirect()->route('product');
     }
-
 }
